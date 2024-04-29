@@ -1,7 +1,10 @@
-async function routes(fastify, options) {
-  fastify.get("/", (req, reply) => {
-    return "Hello World";
-  });
-}
+import * as controller from "./controllers/events/event.controller";
 
-export default routes;
+const express = require("express");
+const router = express.Router();
+
+router.post("/", controller.addEvents);
+router.get("/", controller.fetchAllEvents);
+router.patch("/:id", controller.updateEvent);
+
+module.exports = router;
