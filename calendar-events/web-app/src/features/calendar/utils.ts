@@ -1,10 +1,11 @@
+import moment from "moment";
 import { Event } from "react-big-calendar";
 
 export function mapEventsData(events: any[]) {
   const mappedData: Event[] = events.map((evt: any) => ({
     title: evt.event_name,
-    start: new Date(evt.event_start_time),
-    end: new Date(evt.event_end_time),
+    start: moment(evt.event_start_time).toDate(),
+    end: moment(evt.event_end_time).toDate(),
     resource: evt.id,
   }));
 

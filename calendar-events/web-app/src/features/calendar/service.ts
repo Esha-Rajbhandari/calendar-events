@@ -20,3 +20,19 @@ export const updateEvents = async (event: any, id: number) => {
 
   return data.data;
 };
+
+export const deleteEvent = async (id: number) => {
+  const url = "/events/:id";
+  const interpolatedURL = interpolate(url, { id });
+  const data = await http.remove(interpolatedURL);
+
+  return data.data;
+};
+
+export const fetchHolidays = async (timezone: string) => {
+  const url = "https://date.nager.at/api/v3/publicholidays/:year/:countryCode";
+  const interpolatedURL = interpolate(url, { year: 2024, countryCode: "US" });
+  const data = await http.get(interpolatedURL);
+
+  return data.data;
+};

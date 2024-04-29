@@ -8,11 +8,12 @@ import Dropdown from "@/ui/Select";
 
 interface TimeZoneProps {
   timezone: string;
+  className?: string;
   setTimezone: Dispatch<SetStateAction<string>>;
 }
 
 const TimeZone = (props: TimeZoneProps) => {
-  const { setTimezone, timezone } = props;
+  const { setTimezone, timezone, className } = props;
 
   const timeZones = moment.tz.names();
 
@@ -32,25 +33,27 @@ const TimeZone = (props: TimeZoneProps) => {
   };
 
   return (
-    <Form {...form}>
-      <FormField
-        control={form.control}
-        name="timezone"
-        render={() => (
-          <FormItem>
-            <FormControl>
-              <Dropdown
-                itemLabel={"Timezones"}
-                defaultValue={timezone}
-                handleChange={handleChange}
-                dropdownItems={getTimeZoneList()}
-                dropdownPlaceholder={"Select timezone"}
-              />
-            </FormControl>
-          </FormItem>
-        )}
-      />
-    </Form>
+    <div className={className}>
+      <Form {...form}>
+        <FormField
+          control={form.control}
+          name="timezone"
+          render={() => (
+            <FormItem>
+              <FormControl>
+                <Dropdown
+                  itemLabel={"Timezones"}
+                  defaultValue={timezone}
+                  handleChange={handleChange}
+                  dropdownItems={getTimeZoneList()}
+                  dropdownPlaceholder={"Select timezone"}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+      </Form>
+    </div>
   );
 };
 

@@ -6,7 +6,11 @@ import { Button } from "@/shadcn/ui/button";
 import { SlotTime } from "@/features/calendar/types";
 import { mapEventsData } from "@/features/calendar/utils";
 import { Dispatch, SetStateAction, useEffect } from "react";
-import { addEvents, updateEvents } from "@/features/calendar/service";
+import {
+  addEvents,
+  deleteEvent,
+  updateEvents,
+} from "@/features/calendar/service";
 
 import {
   Form,
@@ -73,6 +77,10 @@ const AddEvent = (props: AddEventProps) => {
     };
 
     try {
+      if (!!initialValue?.title && eventName === initialValue.title) {
+        return;
+      }
+
       const data = await updateEvents(calendarEvent, id);
 
       const mappedData = mapEventsData(data);
@@ -84,6 +92,20 @@ const AddEvent = (props: AddEventProps) => {
 
         return [...filteredEvent, ...mappedData];
       });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      resetForm();
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const [data] = await deleteEvent(initialValue?.resource);
+
+      setEvents((prevEvents) =>
+        prevEvents.filter((ev) => ev.resource !== data?.id)
+      );
     } catch (err) {
       console.error(err);
     }
@@ -98,14 +120,7 @@ const AddEvent = (props: AddEventProps) => {
       onOpenChange={onOpenChange}
     >
       <Form {...form}>
-        <form
-          onSubmit={
-            !!initialValue
-              ? form.handleSubmit(onUpdateEvent)
-              : form.handleSubmit(onAddEvent)
-          }
-          className="space-y-4"
-        >
+        <div className="space-y-4">
           <FormField
             control={form.control}
             name="eventName"
@@ -119,10 +134,22 @@ const AddEvent = (props: AddEventProps) => {
             )}
           />
 
-          <Button variant={"default"}>
-            {!initialValue ? "Add Event" : "Update Event"}
-          </Button>
-        </form>
+          <div className="flex flex-row">
+            <Button
+              variant={"default"}
+              onClick={
+                !!initialValue
+                  ? form.handleSubmit(onUpdateEvent)
+                  : form.handleSubmit(onAddEvent)
+              }
+            >
+              {!initialValue ? "Add Event" : "Update Event"}
+            </Button>
+            <Button variant={"outline"} className="ml-2" onClick={handleDelete}>
+              Delete
+            </Button>
+          </div>
+        </div>
       </Form>
     </Modal>
   );
