@@ -34,3 +34,14 @@ export const updateEvent = async (eventId, event) => {
     throw new Error(err);
   }
 };
+
+export const deleteEvent = async (eventId) => {
+  try {
+    const data = await Events.deleteEvent(eventId);
+
+    return data;
+  } catch (err) {
+    console.error(err.message);
+    throw new Error(err);
+  }
+};

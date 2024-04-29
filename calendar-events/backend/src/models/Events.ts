@@ -22,3 +22,12 @@ export async function updateEvent(eventId: number, event) {
 
   return data;
 }
+
+export async function deleteEvent(eventId: number) {
+  const data = await connection(TABLE_NAME)
+    .where("id", eventId)
+    .del()
+    .returning("id");
+
+  return data;
+}

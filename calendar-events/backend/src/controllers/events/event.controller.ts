@@ -28,3 +28,13 @@ export const updateEvent = async (req, res, next) => {
     .catch((err) => res.status(500))
     .finally(() => next());
 };
+
+export const deleteEvent = async (req, res, next) => {
+  const { id } = req.params;
+
+  return eventService
+    .deleteEvent(id)
+    .then((data) => res.send(data))
+    .catch((err) => res.status(500))
+    .finally(() => next());
+};
