@@ -3,8 +3,10 @@ import InputField from "@/ui/Input";
 import { useForm } from "react-hook-form";
 import { Event } from "react-big-calendar";
 import { Button } from "@/shadcn/ui/button";
-import { Dispatch, SetStateAction, useEffect } from "react";
 import { SlotTime } from "@/features/calendar/types";
+import { mapEventsData } from "@/features/calendar/utils";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import { addEvents, updateEvents } from "@/features/calendar/service";
 
 import {
   Form,
@@ -31,41 +33,60 @@ const AddEvent = (props: AddEventProps) => {
 
   useEffect(() => {
     if (!!initialValue) {
-      form.reset({ eventName: initialValue.title });
+      form.reset({ eventName: initialValue.title, id: initialValue.resource });
     }
 
     () => form.reset();
   }, [initialValue]);
 
-  const onAddEvent = (data: any) => {
+  const onAddEvent = async (data: any) => {
     const { eventName } = data;
 
-    const calendarEvent: Event = {
-      title: eventName,
-      end: slotTime?.end,
-      start: slotTime?.start,
+    const calendarEvent = {
+      event_name: eventName,
+      created_at: new Date(),
+      event_end_time: slotTime?.end,
+      event_start_time: slotTime?.start,
     };
 
-    setEvents((prevEvents) => [...prevEvents, calendarEvent]);
+    try {
+      const data = await addEvents([calendarEvent]);
+
+      const mappedData = mapEventsData(data);
+
+      setEvents((prevEvents) => [...prevEvents, ...mappedData]);
+    } catch (err) {
+      console.error(err);
+    }
+
     resetForm();
   };
 
-  const onUpdateEvent = (data: any) => {
-    const { eventName } = data;
+  const onUpdateEvent = async (data: any) => {
+    const { eventName, id } = data;
 
-    const calendarEvent: Event = {
-      title: eventName,
-      end: slotTime?.end,
-      start: slotTime?.start,
+    const calendarEvent = {
+      event_name: eventName,
+      updated_at: new Date(),
+      event_end_time: slotTime?.end,
+      event_start_time: slotTime?.start,
     };
 
-    setEvents((prevEvents) => {
-      const filteredEvent = prevEvents.filter(
-        (event) => event.title !== initialValue?.title
-      );
+    try {
+      const data = await updateEvents(calendarEvent, id);
 
-      return [...filteredEvent, calendarEvent];
-    });
+      const mappedData = mapEventsData(data);
+
+      setEvents((prevEvents) => {
+        const filteredEvent = prevEvents.filter(
+          (event) => event.title !== initialValue?.title
+        );
+
+        return [...filteredEvent, ...mappedData];
+      });
+    } catch (err) {
+      console.error(err);
+    }
 
     resetForm();
   };

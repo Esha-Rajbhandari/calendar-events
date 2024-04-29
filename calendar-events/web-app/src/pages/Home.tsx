@@ -6,6 +6,7 @@ import { Event, SlotInfo, Views, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import TimeZone from "@/components/TimeZone";
+import useEventsQuery from "@/hooks/useEventsQuery";
 import { SlotTime } from "@/features/calendar/types";
 import AddEvent from "@/components/eventForm/AddEvent";
 import CalendarWrapper from "@/features/calendar/CalendarWrapper";
@@ -21,6 +22,8 @@ const Home = () => {
   const [showAddEventForm, setShowAddEventForm] =
     React.useState<boolean>(false);
 
+  const { loading } = useEventsQuery({ onSuccess: setEvents });
+
   const { defaultDate, views } = React.useMemo(() => {
     moment.tz.setDefault(timezone);
 
@@ -29,6 +32,10 @@ const Home = () => {
       views: Object.keys(Views).map((k) => Views[k as keyof typeof Views]),
     };
   }, [timezone]);
+
+  if (loading) {
+    return <></>;
+  }
 
   const handleSelectSlot = (slotInfo: SlotInfo) => {
     const { start, end } = slotInfo;
