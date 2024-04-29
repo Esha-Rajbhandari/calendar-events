@@ -1,22 +1,17 @@
-import Fastify from "fastify";
-import appRoutes from "./routes";
+const express = require("express");
+const bodyParser = require("body-parser");
+const appRoutes = require("./routes");
+const cors = require("cors");
 
-const fastify = Fastify({
-  logger: true,
-  requestTimeout: 30000,
-});
+const app = express();
 
-const port = 3000;
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-fastify.register(appRoutes);
+app.use("/events", appRoutes);
 
-(async function startServer() {
-  try {
-    await fastify.listen({ port });
-
-    fastify.log.info(`Listening to server on port: ${port}`);
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
+(function startServer() {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => console.log(`Server listening in port: ${port}`));
 })();
