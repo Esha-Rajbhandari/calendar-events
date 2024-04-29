@@ -11,6 +11,7 @@ const CalendarWrapper = (props: CalendarProps) => {
     localizer,
     selectable,
     onSelectSlot,
+    eventPropGetter,
     onSelectEvent,
     defaultView = "month",
     defaultDate = new Date(),
@@ -27,6 +28,7 @@ const CalendarWrapper = (props: CalendarProps) => {
       defaultView={defaultView}
       defaultDate={defaultDate}
       onSelectSlot={onSelectSlot}
+      eventPropGetter={eventPropGetter}
       onSelectEvent={onSelectEvent}
     />
   );

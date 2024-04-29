@@ -10,6 +10,7 @@ import useEventsQuery from "@/hooks/useEventsQuery";
 import { SlotTime } from "@/features/calendar/types";
 import AddEvent from "@/components/eventForm/AddEvent";
 import CalendarWrapper from "@/features/calendar/CalendarWrapper";
+import useHolidayQuery from "@/hooks/useHolidayQuery";
 
 const Home = () => {
   const localizer = momentLocalizer(moment);
@@ -22,7 +23,10 @@ const Home = () => {
   const [showAddEventForm, setShowAddEventForm] =
     React.useState<boolean>(false);
 
-  const { loading } = useEventsQuery({ onSuccess: setEvents });
+  const { loading: isHolidaysLoading } = useHolidayQuery(timezone, {
+    onSuccess: setEvents,
+  });
+  const { loading: isEventsLoading } = useEventsQuery({ onSuccess: setEvents });
 
   const { defaultDate, views } = React.useMemo(() => {
     moment.tz.setDefault(timezone);
@@ -33,7 +37,7 @@ const Home = () => {
     };
   }, [timezone]);
 
-  if (loading) {
+  if (isHolidaysLoading || isEventsLoading) {
     return <></>;
   }
 
@@ -41,10 +45,14 @@ const Home = () => {
     const { start, end } = slotInfo;
 
     setShowAddEventForm(true);
-    setSlotTime({ start, end });
+    setSlotTime({ start: start, end });
   };
 
-  const handleSelectEvent = (event: Event) => {
+  const handleSelectEvent = (event: Event & { isHoliday?: boolean }) => {
+    if (event.isHoliday) {
+      return;
+    }
+
     setShowAddEventForm(true);
     setSelectedEvent(event);
   };
@@ -54,9 +62,19 @@ const Home = () => {
     setShowAddEventForm(false);
   };
 
+  const eventStyleGetter = (event: Event & { isHoliday?: boolean }) => {
+    const backgroundColor = event.isHoliday ? "red" : "#3174ad";
+
+    return { style: { backgroundColor } };
+  };
+
   return (
-    <>
-      <TimeZone setTimezone={setTimezone} timezone={timezone} />
+    <div className="h-screen flex flex-col justify-center items-center">
+      <TimeZone
+        setTimezone={setTimezone}
+        timezone={timezone}
+        className="mb-4"
+      />
       <CalendarWrapper
         selectable
         popup
@@ -65,7 +83,8 @@ const Home = () => {
         defaultView="month"
         localizer={localizer}
         defaultDate={defaultDate}
-        style={{ height: "100vh" }}
+        style={{ height: "600px" }}
+        eventPropGetter={eventStyleGetter}
         onSelectSlot={handleSelectSlot}
         onSelectEvent={handleSelectEvent}
       />
@@ -80,7 +99,7 @@ const Home = () => {
           onOpenChange={setShowAddEventForm}
         />
       )}
-    </>
+    </div>
   );
 };
 

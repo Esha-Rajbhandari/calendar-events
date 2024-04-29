@@ -1,8 +1,7 @@
 import React from "react";
-import { fetchAllEvents } from "@/features/calendar/service";
-import { mapEventsData } from "@/features/calendar/utils";
+import { fetchHolidays } from "@/features/calendar/service";
 
-const useEventsQuery = (options?: any) => {
+const useHolidayQuery = (timezone: string, options?: any) => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, hasError] = React.useState<boolean>(false);
   const [data, setData] = React.useState<any>(null);
@@ -12,14 +11,19 @@ const useEventsQuery = (options?: any) => {
       try {
         setLoading(true);
 
-        const result = await fetchAllEvents();
+        const result = await fetchHolidays(timezone);
 
-        const mappedData = mapEventsData(result);
+        const mappedData = result.map((holiday: any) => ({
+          title: holiday.name,
+          start: new Date(holiday.date),
+          end: new Date(holiday.date),
+          isHoliday: true,
+        }));
 
         setData(mappedData);
 
         if (options?.onSuccess) {
-          options.onSuccess((prevData: any) => [...prevData, ...mappedData]);
+          options.onSuccess(mappedData);
         }
       } catch (err) {
         hasError(true);
@@ -34,4 +38,4 @@ const useEventsQuery = (options?: any) => {
   return { data, loading, error };
 };
 
-export default useEventsQuery;
+export default useHolidayQuery;
