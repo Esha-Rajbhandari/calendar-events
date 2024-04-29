@@ -8,20 +8,25 @@ const baseHeader = {
   "Content-Type": "application/json",
 };
 
-const get = (url: string, customHeaders?: any) => {
-  return http.get(url, { ...baseHeader, ...customHeaders });
+const get = (url: string, params?: any, customHeaders?: any) => {
+  return http.get(url, {
+    params,
+    headers: { ...baseHeader, ...customHeaders },
+  });
 };
 
 const post = (url: string, data: any, customHeaders?: any) => {
-  return http.post(url, data, { ...baseHeader, ...customHeaders });
+  return http.post(url, data, { headers: { ...baseHeader, ...customHeaders } });
 };
 
 const patch = (url: string, data: any, customHeaders?: any) => {
-  return http.patch(url, data, { ...baseHeader, ...customHeaders });
+  return http.patch(url, data, {
+    headers: { ...baseHeader, ...customHeaders },
+  });
 };
 
 const remove = (url: string, customHeaders?: any) => {
-  return http.delete(url, { ...baseHeader, ...customHeaders });
+  return http.delete(url, { headers: { ...baseHeader, ...customHeaders } });
 };
 
 export { get, post, patch, remove };
