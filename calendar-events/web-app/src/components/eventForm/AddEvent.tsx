@@ -19,11 +19,12 @@ import {
   FormItem,
   FormLabel,
 } from "@/shadcn/ui/form";
+import DatePicker from "@/ui/DatePicker";
 
 interface AddEventProps {
   open: boolean;
   resetForm: () => void;
-  initialValue?: Event;
+  initialValue?: Event & { isHoliday?: boolean; description?: string };
   slotTime?: SlotTime;
   onOpenChange: (isOpen: boolean) => void;
   setEvents: Dispatch<SetStateAction<Event[]>>;
@@ -37,20 +38,26 @@ const AddEvent = (props: AddEventProps) => {
 
   useEffect(() => {
     if (!!initialValue) {
-      form.reset({ eventName: initialValue.title, id: initialValue.resource });
+      form.reset({
+        eventName: initialValue.title,
+        id: initialValue.resource,
+        eventDescription: initialValue.description,
+        eventDateRange: { from: initialValue.start, to: initialValue.end },
+      });
     }
 
     () => form.reset();
   }, [initialValue]);
 
   const onAddEvent = async (data: any) => {
-    const { eventName } = data;
+    const { eventName, eventDescription, eventDateRange } = data;
 
     const calendarEvent = {
       event_name: eventName,
       created_at: new Date(),
-      event_end_time: slotTime?.end,
-      event_start_time: slotTime?.start,
+      description: eventDescription,
+      event_end_time: eventDateRange?.to,
+      event_start_time: eventDateRange?.from,
     };
 
     try {
@@ -67,13 +74,14 @@ const AddEvent = (props: AddEventProps) => {
   };
 
   const onUpdateEvent = async (data: any) => {
-    const { eventName, id } = data;
+    const { eventName, id, eventDescription, eventDateRange } = data;
 
     const calendarEvent = {
       event_name: eventName,
       updated_at: new Date(),
-      event_end_time: slotTime?.end,
-      event_start_time: slotTime?.start,
+      description: eventDescription,
+      event_end_time: eventDateRange.to,
+      event_start_time: eventDateRange.from,
     };
 
     try {
@@ -129,6 +137,36 @@ const AddEvent = (props: AddEventProps) => {
                 <FormLabel>Event Name</FormLabel>
                 <FormControl>
                   <InputField placeholder="Event name" {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="eventDescription"
+            render={({ field }: { field: any }) => (
+              <FormItem>
+                <FormLabel>Description</FormLabel>
+                <FormControl>
+                  <InputField placeholder="Description" {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            defaultValue={{
+              from: slotTime?.start,
+              to: slotTime?.end,
+            }}
+            name="eventDateRange"
+            render={({ field }: { field: any }) => (
+              <FormItem>
+                <FormLabel>Select date range</FormLabel>
+                <FormControl>
+                  <DatePicker field={field} placeholder="Select date range" />
                 </FormControl>
               </FormItem>
             )}

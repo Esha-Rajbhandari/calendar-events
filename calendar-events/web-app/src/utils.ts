@@ -1,5 +1,6 @@
 import moment from "moment";
 import { Event } from "react-big-calendar";
+import { DateRange } from "react-day-picker";
 
 export function mapEventsData(events: any[]) {
   const mappedData: Event[] = events.map((evt: any) => ({
@@ -32,4 +33,16 @@ export function interpolate(str: string, value: any) {
 
 export const isPresentOrFutureDate = (date: Date) => {
   return moment() <= moment(date);
+};
+
+export const getDateRangeString = (dateRange?: DateRange) => {
+  if (dateRange?.from && dateRange?.to) {
+    return `${dateRange?.from?.toDateString()}-${dateRange?.to?.toDateString()}`;
+  }
+
+  if (dateRange?.from?.toDateString() === dateRange?.to?.toDateString()) {
+    return `${dateRange?.from?.toDateString()}`;
+  }
+
+  return "";
 };

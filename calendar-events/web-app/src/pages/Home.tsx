@@ -46,6 +46,10 @@ const Home = () => {
     const { start, end } = slotInfo;
     const isValidStartDate = isPresentOrFutureDate(start);
 
+    if (!isValidStartDate) {
+      window.alert("Past date cannot be selected");
+    }
+
     setShowAddEventForm(isValidStartDate);
     setSlotTime({ start: start, end });
   };
