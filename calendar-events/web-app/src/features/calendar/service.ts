@@ -1,5 +1,5 @@
 import * as http from "../../http";
-import { interpolate } from "./utils";
+import { interpolate } from "../../utils";
 
 export const fetchAllEvents = async () => {
   const data = await http.get("/events/");

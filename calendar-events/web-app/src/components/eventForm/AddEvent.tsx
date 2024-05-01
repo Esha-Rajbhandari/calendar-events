@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Event } from "react-big-calendar";
 import { Button } from "@/shadcn/ui/button";
 import { SlotTime } from "@/features/calendar/types";
-import { mapEventsData } from "@/features/calendar/utils";
+import { mapEventsData } from "@/utils";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import {
   addEvents,

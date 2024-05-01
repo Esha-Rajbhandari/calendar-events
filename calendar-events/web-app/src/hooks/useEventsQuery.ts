@@ -1,6 +1,6 @@
 import React from "react";
 import { fetchAllEvents } from "@/features/calendar/service";
-import { mapEventsData } from "@/features/calendar/utils";
+import { mapEventsData } from "@/utils";
 
 const useEventsQuery = (options?: any) => {
   const [loading, setLoading] = React.useState<boolean>(false);
