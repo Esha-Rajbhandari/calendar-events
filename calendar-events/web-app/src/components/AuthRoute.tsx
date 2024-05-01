@@ -1,22 +1,13 @@
-import React from "react";
-import Login from "@/pages/Login";
+import { Navigate } from "react-router-dom";
 
 const AuthRoute = (props: any) => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-
-  React.useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!!token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  const isLoggedIn = localStorage.getItem("token");
 
   if (isLoggedIn) {
     return <>{props.children}</>;
   }
 
-  return <Login />;
+  return <Navigate to={"/login"} />;
 };
 
 export default AuthRoute;
