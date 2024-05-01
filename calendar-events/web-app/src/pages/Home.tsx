@@ -6,11 +6,12 @@ import { Event, SlotInfo, Views, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import TimeZone from "@/components/TimeZone";
+import { isPresentOrFutureDate } from "@/utils";
 import useEventsQuery from "@/hooks/useEventsQuery";
 import { SlotTime } from "@/features/calendar/types";
+import useHolidayQuery from "@/hooks/useHolidayQuery";
 import AddEvent from "@/components/eventForm/AddEvent";
 import CalendarWrapper from "@/features/calendar/CalendarWrapper";
-import useHolidayQuery from "@/hooks/useHolidayQuery";
 
 const Home = () => {
   const localizer = momentLocalizer(moment);
@@ -43,8 +44,9 @@ const Home = () => {
 
   const handleSelectSlot = (slotInfo: SlotInfo) => {
     const { start, end } = slotInfo;
+    const isValidStartDate = isPresentOrFutureDate(start);
 
-    setShowAddEventForm(true);
+    setShowAddEventForm(isValidStartDate);
     setSlotTime({ start: start, end });
   };
 
