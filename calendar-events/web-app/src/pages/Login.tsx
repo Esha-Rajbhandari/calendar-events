@@ -1,29 +1,23 @@
+import * as http from "../http";
 import { Button } from "@/shadcn/ui/button";
-import { useNavigate } from "react-router-dom";
-import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const isLoggedIn = localStorage.getItem("token");
-
-  const googleLogin = useGoogleLogin({
-    prompt: "consent",
-    onSuccess: (codeResponse: TokenResponse) => {
-      localStorage.setItem("token", codeResponse.access_token);
-      navigate("/home");
-    },
-    onError: (err) => console.log(err),
-  });
-
-  if (isLoggedIn) {
-    navigate("/home");
-
-    return;
-  }
+  const handleLogin = async () => {
+    try {
+      // Gets authentication url from backend server
+      const {
+        data: { url },
+      } = await http.get(`${import.meta.env.VITE_API_ENDPOINT}/auth/url`);
+      // Navigate to consent screen
+      window.location.assign(url);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <Button onClick={() => googleLogin()}>Sign in with Google</Button>
+      <Button onClick={handleLogin}>Sign in with Google</Button>
     </div>
   );
 };

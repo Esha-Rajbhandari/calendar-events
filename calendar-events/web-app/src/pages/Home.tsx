@@ -5,6 +5,7 @@ import { Event, SlotInfo, Views, momentLocalizer } from "react-big-calendar";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
+import Header from "@/components/Header";
 import TimeZone from "@/components/TimeZone";
 import { isPresentOrFutureDate } from "@/utils";
 import useEventsQuery from "@/hooks/useEventsQuery";
@@ -75,37 +76,40 @@ const Home = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center">
-      <TimeZone
-        setTimezone={setTimezone}
-        timezone={timezone}
-        className="mb-4"
-      />
-      <CalendarWrapper
-        selectable
-        popup
-        views={views}
-        events={events}
-        defaultView="month"
-        localizer={localizer}
-        defaultDate={defaultDate}
-        style={{ height: "600px" }}
-        eventPropGetter={eventStyleGetter}
-        onSelectSlot={handleSelectSlot}
-        onSelectEvent={handleSelectEvent}
-      />
-
-      {showAddEventForm && (
-        <AddEvent
-          slotTime={slotTime}
-          resetForm={resetForm}
-          setEvents={setEvents}
-          open={showAddEventForm}
-          initialValue={selectedEvent}
-          onOpenChange={setShowAddEventForm}
+    <>
+      <Header />
+      <div className="flex flex-col justify-center items-center pt-16">
+        <TimeZone
+          setTimezone={setTimezone}
+          timezone={timezone}
+          className="mb-4"
         />
-      )}
-    </div>
+        <CalendarWrapper
+          selectable
+          popup
+          views={views}
+          events={events}
+          defaultView="month"
+          localizer={localizer}
+          defaultDate={defaultDate}
+          style={{ height: "600px" }}
+          eventPropGetter={eventStyleGetter}
+          onSelectSlot={handleSelectSlot}
+          onSelectEvent={handleSelectEvent}
+        />
+
+        {showAddEventForm && (
+          <AddEvent
+            slotTime={slotTime}
+            resetForm={resetForm}
+            setEvents={setEvents}
+            open={showAddEventForm}
+            initialValue={selectedEvent}
+            onOpenChange={setShowAddEventForm}
+          />
+        )}
+      </div>
+    </>
   );
 };
 
