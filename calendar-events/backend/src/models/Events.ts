@@ -14,6 +14,15 @@ export async function fetchAllEvents() {
   return data;
 }
 
+export async function fetchEventsByUser(userId: number) {
+  const data = await connection
+    .select("*")
+    .from(TABLE_NAME)
+    .where("created_by", userId);
+
+  return data;
+}
+
 export async function updateEvent(eventId: number, event) {
   const data = await connection(TABLE_NAME)
     .where("id", eventId)

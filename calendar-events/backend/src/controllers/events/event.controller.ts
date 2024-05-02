@@ -11,8 +11,10 @@ export const addEvents = async (req, res, next) => {
 };
 
 export const fetchAllEvents = async (req, res, next) => {
+  const { email } = req.query;
+
   return eventService
-    .fetchAllEvents()
+    .fetchAllEvents(email)
     .then((data) => res.send(data))
     .catch((err) => res.status(500))
     .finally(() => next());
