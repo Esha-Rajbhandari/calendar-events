@@ -8,7 +8,7 @@
     "build": "tsc",
     "migrate": "yarn run build && knex migrate:latest --knexfile dist/knexfile.js",
     "start": "nodemon -e ts -w ./src -x yarn run watch:serve",
-    "watch:serve": "node --no-warnings=ExperimentalWarning --loader ts-node/esm src/index.ts"
+    "watch:serve": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./index.ts"
   },
   "dependencies": {
     "@types/node": "^20.12.7",
