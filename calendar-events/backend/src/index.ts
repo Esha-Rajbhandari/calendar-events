@@ -1,15 +1,27 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const appRoutes = require("./routes");
-const cors = require("cors");
+import cors from "cors";
+import express from "express";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import authRoutes from "./routes/auth.routes";
+import appRoutes from "./routes/events.routes";
+import { auth } from "./middlewares/auth.middleware";
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
+
+app.use(cookieParser());
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/events", appRoutes);
+app.use("/auth", authRoutes);
+app.use("/events", auth, appRoutes);
 
 (function startServer() {
   const port = process.env.PORT || 3000;

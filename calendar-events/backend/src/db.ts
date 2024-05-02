@@ -1,9 +1,7 @@
 import knex from "knex";
+import "dotenv/config";
+import knexConfig from "../knexfile";
 
-const dotenv = require("dotenv");
-const knexConfig = require("../knexfile");
-
-dotenv.config();
 const config = knexConfig[process.env.ENV];
 const connection = knex(config);
 

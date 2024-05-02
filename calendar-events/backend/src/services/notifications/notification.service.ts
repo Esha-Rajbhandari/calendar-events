@@ -1,8 +1,6 @@
-const nodemailer = require("nodemailer");
-const cron = require("node-cron");
-const dotenv = require("dotenv");
-
-dotenv.config();
+import "dotenv/config";
+import cron from "node-cron";
+import nodemailer from "nodemailer";
 
 const getTransporterConfig = () => {
   return nodemailer.createTransport({
