@@ -5,7 +5,7 @@ import { Event } from "react-big-calendar";
 import { Button } from "@/shadcn/ui/button";
 import { SlotTime } from "@/features/calendar/types";
 import { mapEventsData } from "@/utils";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect } from "react";
 import {
   addEvents,
   deleteEvent,
@@ -20,6 +20,7 @@ import {
   FormLabel,
 } from "@/shadcn/ui/form";
 import DatePicker from "@/ui/DatePicker";
+import LoginContext from "@/context/login/LoginContext";
 
 interface AddEventProps {
   open: boolean;
@@ -35,6 +36,7 @@ const AddEvent = (props: AddEventProps) => {
     props;
 
   const form = useForm();
+  const { user } = useContext(LoginContext);
 
   useEffect(() => {
     if (!!initialValue) {
@@ -53,6 +55,7 @@ const AddEvent = (props: AddEventProps) => {
     const { eventName, eventDescription, eventDateRange } = data;
 
     const calendarEvent = {
+      created_by: user.email,
       event_name: eventName,
       created_at: new Date(),
       description: eventDescription,
@@ -77,6 +80,7 @@ const AddEvent = (props: AddEventProps) => {
     const { eventName, id, eventDescription, eventDateRange } = data;
 
     const calendarEvent = {
+      created_by: user.email,
       event_name: eventName,
       updated_at: new Date(),
       description: eventDescription,

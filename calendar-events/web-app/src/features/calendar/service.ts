@@ -1,8 +1,8 @@
 import * as http from "../../http";
 import { interpolate } from "../../utils";
 
-export const fetchAllEvents = async () => {
-  const data = await http.get("/events/");
+export const fetchEventsByUser = async (email: string) => {
+  const data = await http.get("/events/", { email });
 
   return data.data;
 };
