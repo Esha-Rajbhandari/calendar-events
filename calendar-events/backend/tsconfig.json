@@ -1,5 +1,16 @@
 {
   "compilerOptions": {
-    "moduleDetection": "force"
-  }
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "target": "ESNext",
+    "moduleResolution": "Node",
+    "outDir": "dist",
+    "allowJs": true
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "include": ["migrations", "src/**/*.ts", "knexfile.ts"],
+  "exclude": ["node_modules"]
 }
