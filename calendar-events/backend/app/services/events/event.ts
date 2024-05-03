@@ -1,6 +1,6 @@
-import * as Events from "../../models/Events";
-import * as User from "../../models/Users";
-import * as notificationService from "../notifications/notification.service";
+import * as Events from "../../models/Events.js";
+import * as User from "../../models/Users.js";
+import * as notificationService from "../notifications/notification.js";
 
 export const addEvents = async (events) => {
   try {

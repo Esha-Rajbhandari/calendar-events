@@ -1,4 +1,4 @@
-import connection from "../db";
+import connection from "../db.js";
 
 const TABLE_NAME = "events";
 

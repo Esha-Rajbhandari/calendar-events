@@ -1,7 +1,7 @@
 import express from "express";
 
-import * as eventController from "../controllers/events/event.controller";
-import * as userController from "../controllers/users/users.controller";
+import * as eventController from "../controllers/events/event.js";
+import * as userController from "../controllers/users/users.js";
 
 const router = express.Router();
 

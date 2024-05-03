@@ -1,4 +1,4 @@
-import * as eventService from "../../services/events/event.service";
+import * as eventService from "../../services/events/event.js";
 
 export const addEvents = async (req, res, next) => {
   const { body: events } = req;

@@ -2,8 +2,8 @@ import axios from "axios";
 import express from "express";
 import jwt from "jsonwebtoken";
 
-import { getAuthParams, getConfig, getTokenParams } from "../../config";
-import { addUser } from "../services/users/users.service";
+import { getAuthParams, getConfig, getTokenParams } from "../../config.js";
+import { addUser } from "../services/users/users.js";
 
 const router = express.Router();
 

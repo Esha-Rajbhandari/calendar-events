@@ -1,4 +1,4 @@
-import { getConfig } from "../../config";
+import { getConfig } from "../../config.js";
 import jwt from "jsonwebtoken";
 
 export const auth = (req, res, next) => {

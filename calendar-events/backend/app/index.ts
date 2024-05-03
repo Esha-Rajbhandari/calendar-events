@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.js";
 import appRoutes from "./routes/events.js";
-import { auth } from "./middlewares/auth.middleware.js";
+import { auth } from "./middlewares/auth.js";
 
 const app = express();
 

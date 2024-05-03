@@ -1,4 +1,4 @@
-import "dotenv/config";
+import "dotenv/config.js";
 import queryString from "query-string";
 
 export const getConfig = () => ({

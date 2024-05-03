@@ -1,4 +1,4 @@
-import * as userService from "../../services/users/users.service";
+import * as userService from "../../services/users/users.js";
 
 export const fetchAllUsers = async (req, res, next) => {
   return userService
