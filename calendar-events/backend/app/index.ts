@@ -3,8 +3,8 @@ import "dotenv/config";
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import authRoutes from "./routes/auth.routes.js";
-import appRoutes from "./routes/events.routes.js";
+import authRoutes from "./routes/auth.js";
+import appRoutes from "./routes/events.js";
 import { auth } from "./middlewares/auth.middleware.js";
 
 const app = express();
