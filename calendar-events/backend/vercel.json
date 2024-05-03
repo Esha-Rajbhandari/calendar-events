@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "builds": [{ "src": "/app/index.ts", "use": "@vercel/node" }],
+  "builds": [{ "src": "/app/*", "use": "@vercel/node" }],
   "rewrites": [
     {
       "source": "/api/(.*)",
