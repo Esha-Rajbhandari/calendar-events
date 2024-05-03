@@ -1,7 +1,13 @@
 {
   "version": 2,
-  "outputDirectory": "dist",
-  "builds": [{ "src": "packages/*", "use": "@vercel/node" }],
+  "builds": [
+    {
+      "src": "/calendar-events/web-app",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "/calendar-events/web-app/dist" }
+    },
+    { "src": "/calendar-events/backend/*", "use": "@vercel/node" }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
