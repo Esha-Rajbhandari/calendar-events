@@ -25,7 +25,7 @@ const Home = () => {
   const [showAddEventForm, setShowAddEventForm] =
     React.useState<boolean>(false);
 
-  const { loading: isHolidaysLoading } = useHolidayQuery(timezone, {
+  const { loading: isHolidaysLoading } = useHolidayQuery({
     onSuccess: setEvents,
   });
   const { loading: isEventsLoading } = useEventsQuery({ onSuccess: setEvents });

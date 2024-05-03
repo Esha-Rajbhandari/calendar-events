@@ -29,7 +29,7 @@ export const deleteEvent = async (id: number) => {
   return data.data;
 };
 
-export const fetchHolidays = async (timezone: string) => {
+export const fetchHolidays = async () => {
   const url = "https://date.nager.at/api/v3/publicholidays/:year/:countryCode";
   const interpolatedURL = interpolate(url, { year: 2024, countryCode: "US" });
   const data = await http.get(interpolatedURL);

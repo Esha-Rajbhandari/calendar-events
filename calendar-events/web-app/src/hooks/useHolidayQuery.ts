@@ -1,7 +1,7 @@
 import React from "react";
 import { fetchHolidays } from "@/features/calendar/service";
 
-const useHolidayQuery = (timezone: string, options?: any) => {
+const useHolidayQuery = (options?: any) => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, hasError] = React.useState<boolean>(false);
   const [data, setData] = React.useState<any>(null);
@@ -11,7 +11,7 @@ const useHolidayQuery = (timezone: string, options?: any) => {
       try {
         setLoading(true);
 
-        const result = await fetchHolidays(timezone);
+        const result = await fetchHolidays();
 
         const mappedData = result.map((holiday: any) => ({
           title: holiday.name,

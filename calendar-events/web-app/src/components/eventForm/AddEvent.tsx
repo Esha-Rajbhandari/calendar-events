@@ -21,7 +21,6 @@ import {
 } from "@/shadcn/ui/form";
 import DatePicker from "@/ui/DatePicker";
 import LoginContext from "@/context/login/LoginContext";
-import Dropdown from "@/ui/Select";
 import TeamMemberDropdown from "../TeamMemberDropdown";
 
 interface AddEventProps {

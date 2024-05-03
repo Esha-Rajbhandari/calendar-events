@@ -6,13 +6,13 @@
       "use": "@vercel/static-build",
       "config": { "distDir": "calendar-events/web-app/dist" }
     },
-    { "src": "calendar-events/backend", "use": "@vercel/node" }
+    { "src": "calendar-events/backend/*", "use": "@vercel/node" }
   ],
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "calendar-events/backend/app/index.ts"
+      "destination": "/calendar-events/backend/app/index.ts"
     },
-    { "source": "/(.*)", "destination": "calendar-events/web-app/dist/$1" }
+    { "source": "/(.*)", "destination": "/calendar-events/web-app/dist/$1" }
   ]
 }
