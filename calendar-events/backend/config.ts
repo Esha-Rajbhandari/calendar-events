@@ -9,7 +9,7 @@ export const getConfig = () => ({
   redirectUrl: process.env.REDIRECT_URL,
   clientUrl: process.env.CLIENT_URL,
   tokenSecret: process.env.TOKEN_SECRET,
-  tokenExpiration: 36000,
+  tokenExpiration: 3600000,
   postUrl: "https://jsonplaceholder.typicode.com/posts",
 });
 

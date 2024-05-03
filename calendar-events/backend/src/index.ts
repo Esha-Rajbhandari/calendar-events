@@ -1,15 +1,17 @@
 import cors from "cors";
+import "dotenv/config";
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import authRoutes from "./src/routes/auth.routes";
-import appRoutes from "./src/routes/events.routes";
-import { auth } from "./src/middlewares/auth.middleware";
+import authRoutes from "./routes/auth.routes";
+import appRoutes from "./routes/events.routes";
+import { auth } from "./middlewares/auth.middleware";
 
 const app = express();
 
 app.use(
   cors({
+    methods: "GET,POST,PATCH,DELETE,OPTIONS",
     origin: true,
     credentials: true,
   })

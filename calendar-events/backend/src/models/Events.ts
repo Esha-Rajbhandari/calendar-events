@@ -18,7 +18,8 @@ export async function fetchEventsByUser(userId: number) {
   const data = await connection
     .select("*")
     .from(TABLE_NAME)
-    .where("created_by", userId);
+    .where("created_by", userId)
+    .orWhere("created_for", userId);
 
   return data;
 }

@@ -56,8 +56,6 @@ router.get("/token", async (req, res) => {
       httpOnly: true,
     });
 
-    // You can choose to store user in a DB instead
-
     const userObj = {
       name: user.name,
       email: user.email,

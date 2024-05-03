@@ -9,11 +9,16 @@ export async function addUser(user) {
 }
 
 export async function getUser(email: string) {
-  console.log(email);
   const [data] = await connection
     .select("*")
     .from(TABLE_NAME)
     .where("email", email);
+
+  return data;
+}
+
+export async function fetchAllUsers() {
+  const data = await connection.select("*").from(TABLE_NAME);
 
   return data;
 }

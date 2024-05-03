@@ -10,10 +10,22 @@ export const addEvents = async (events) => {
       throw new Error("Cannot create resource. Unauthorized.");
     }
 
-    const eventsPayload = events.map((evt) => ({
-      ...evt,
-      created_by: user.id,
-    }));
+    let eventsPayload = [];
+
+    for (const evt of events) {
+      const { participants, ...rest } = evt;
+
+      for (const ep of evt.participants) {
+        const participantDetail = await User.getUser(ep);
+
+        eventsPayload.push({
+          ...rest,
+          created_by: user.id,
+          created_for: participantDetail.id,
+        });
+      }
+    }
+
     const data = await Events.addEvents(eventsPayload);
 
     notificationService.scheduleNotification(data);

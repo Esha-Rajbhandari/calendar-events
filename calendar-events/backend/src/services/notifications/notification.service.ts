@@ -15,7 +15,7 @@ const getTransporterConfig = () => {
 const sendNotification = (event) => {
   const mailOptions = {
     from: process.env.USER_EMAIL,
-    to: process.env.USER_EMAIL,
+    to: event.created_for,
     subject: `Reminder: ${event.event_name}`,
     text: `You have an event "${event.event_name}" starting at ${event.event_start_time}`,
   };
