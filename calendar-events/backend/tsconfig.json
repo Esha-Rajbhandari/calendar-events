@@ -11,6 +11,6 @@
     "esm": true,
     "experimentalSpecifierResolution": "node"
   },
-  "include": ["migrations", "src/**/*.ts", "knexfile.ts", "src/index.ts"],
+  "include": ["migrations", "app/**/*.ts", "knexfile.ts"],
   "exclude": ["node_modules"]
 }
