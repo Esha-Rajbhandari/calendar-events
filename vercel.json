@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "calendar-events/web-app/*",
+      "src": "calendar-events/web-app/src",
       "use": "@vercel/static-build",
       "config": { "distDir": "calendar-events/web-app/dist" }
     },
