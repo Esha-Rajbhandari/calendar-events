@@ -22,10 +22,12 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/auth", authRoutes);
-app.use("/events", auth, appRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/events", auth, appRoutes);
 
 (function startServer() {
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 8000;
   app.listen(port, () => console.log(`Server listening in port: ${port}`));
 })();
+
+export default app;
