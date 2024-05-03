@@ -21,6 +21,8 @@ import {
 } from "@/shadcn/ui/form";
 import DatePicker from "@/ui/DatePicker";
 import LoginContext from "@/context/login/LoginContext";
+import Dropdown from "@/ui/Select";
+import TeamMemberDropdown from "../TeamMemberDropdown";
 
 interface AddEventProps {
   open: boolean;
@@ -52,7 +54,8 @@ const AddEvent = (props: AddEventProps) => {
   }, [initialValue]);
 
   const onAddEvent = async (data: any) => {
-    const { eventName, eventDescription, eventDateRange } = data;
+    const { eventName, eventDescription, eventDateRange, eventParticipants } =
+      data;
 
     const calendarEvent = {
       created_by: user.email,
@@ -61,6 +64,7 @@ const AddEvent = (props: AddEventProps) => {
       description: eventDescription,
       event_end_time: eventDateRange?.to,
       event_start_time: eventDateRange?.from,
+      participants: eventParticipants.map((ep: any) => ep.value),
     };
 
     try {
@@ -171,6 +175,19 @@ const AddEvent = (props: AddEventProps) => {
                 <FormLabel>Select date range</FormLabel>
                 <FormControl>
                   <DatePicker field={field} placeholder="Select date range" />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="eventParticipants"
+            render={({ field }: { field: any }) => (
+              <FormItem>
+                <FormLabel>Select participants</FormLabel>
+                <FormControl>
+                  <TeamMemberDropdown field={field} />
                 </FormControl>
               </FormItem>
             )}

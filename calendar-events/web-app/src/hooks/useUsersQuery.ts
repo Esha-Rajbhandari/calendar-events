@@ -1,9 +1,8 @@
 import React from "react";
-import { fetchEventsByUser } from "@/features/calendar/service";
-import { mapEventsData } from "@/utils";
+import { fetchAllUsers } from "@/features/calendar/service";
 import LoginContext from "@/context/login/LoginContext";
 
-const useEventsQuery = (options?: any) => {
+const useUsersQuery = (options?: any) => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, hasError] = React.useState<boolean>(false);
   const [data, setData] = React.useState<any>(null);
@@ -15,9 +14,18 @@ const useEventsQuery = (options?: any) => {
       try {
         setLoading(true);
 
-        const result = await fetchEventsByUser(user.email);
+        const result = await fetchAllUsers();
 
-        const mappedData = mapEventsData(result);
+        const filteredData = result.filter(
+          (rs: any) => rs.email !== user.email
+        );
+        const mappedData = filteredData.map((usr: any) => {
+          return {
+            label: usr.name,
+            value: usr.email,
+            isChecked: false,
+          };
+        });
 
         setData(mappedData);
 
@@ -37,4 +45,4 @@ const useEventsQuery = (options?: any) => {
   return { data, loading, error };
 };
 
-export default useEventsQuery;
+export default useUsersQuery;

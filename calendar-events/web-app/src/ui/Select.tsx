@@ -10,6 +10,7 @@ import {
 
 interface DropdownProps {
   itemLabel?: string;
+  disabled?: boolean;
   defaultValue: string;
   dropdownPlaceholder: string;
   handleChange: (value: string) => void;
@@ -24,13 +25,14 @@ const Dropdown = (props: DropdownProps) => {
     itemLabel,
     defaultValue,
     handleChange,
+    disabled = false,
     dropdownItems,
     dropdownPlaceholder,
   } = props;
 
   return (
     <Select onValueChange={handleChange} defaultValue={defaultValue}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[180px]" disabled={disabled}>
         <SelectValue placeholder={dropdownPlaceholder} />
       </SelectTrigger>
       <SelectContent>

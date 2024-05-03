@@ -36,3 +36,9 @@ export const fetchHolidays = async (timezone: string) => {
 
   return data.data;
 };
+
+export const fetchAllUsers = async () => {
+  const data = await http.get("/events/users");
+
+  return data.data;
+};

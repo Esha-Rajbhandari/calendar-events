@@ -1,10 +1,15 @@
 import LoginContext from "@/context/login/LoginContext";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 
 const AuthRoute = (props: any) => {
-  const { loggedIn: isLoggedIn } = useContext(LoginContext);
+  const { loggedIn: isLoggedIn, checkLoginState } = useContext(LoginContext);
 
+  React.useEffect(() => {
+    checkLoginState();
+  }, [isLoggedIn, checkLoginState]);
+
+  console.log(isLoggedIn);
   if (isLoggedIn) {
     return <>{props.children}</>;
   }

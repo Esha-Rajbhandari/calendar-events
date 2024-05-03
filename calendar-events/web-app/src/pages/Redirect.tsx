@@ -28,6 +28,7 @@ const Redirect = () => {
       }
     }
   };
+
   useEffect(() => {
     fetchToken();
   }, [loggedIn, checkLoginState]);
