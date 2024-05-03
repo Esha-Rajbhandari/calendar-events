@@ -10,7 +10,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/app"
+      "destination": "/app/index.ts"
     }
   ]
 }
