@@ -4,10 +4,6 @@
     {
       "source": "/auth/callback",
       "destination": "/src"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/"
     }
   ]
 }
