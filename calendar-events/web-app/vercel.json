@@ -2,8 +2,8 @@
   "version": 2,
   "rewrites": [
     {
-      "source": "/auth/callback",
-      "destination": "/src"
+      "source": "/(.*)",
+      "destination": "/"
     }
   ]
 }
