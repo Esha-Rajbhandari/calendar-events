@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/auth/callback",
-      "destination": "/"
+      "destination": "/src"
     },
     {
       "source": "/(.*)",
