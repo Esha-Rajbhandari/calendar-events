@@ -6,13 +6,7 @@ import "dotenv/config";
 export default {
   development: {
     client: "postgresql",
-    connection: {
-      port: 5432,
-      user: "postgres",
-      host: "localhost",
-      database: "calendar-db",
-      password: "postgres",
-    },
+    connection: process.env.POSTGRES_URL,
     migrations: {
       directory: "./migrations",
       tableName: "migrations",
