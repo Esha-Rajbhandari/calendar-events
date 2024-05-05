@@ -54,6 +54,7 @@ router.get("/token", async (req, res) => {
       maxAge: config.tokenExpiration,
       secure: true,
       httpOnly: true,
+      sameSite: "none",
     });
 
     const userObj = {
