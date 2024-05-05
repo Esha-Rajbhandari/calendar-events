@@ -34,12 +34,10 @@ const Redirect = () => {
   }, [loggedIn, checkLoginState]);
 
   if (loggedIn) {
-    navigate("/home");
-  } else {
-    navigate("/");
+    return <>{navigate("/home")}</>;
   }
 
-  return <></>;
+  return <>{navigate("/")}</>;
 };
 
 export default Redirect;
