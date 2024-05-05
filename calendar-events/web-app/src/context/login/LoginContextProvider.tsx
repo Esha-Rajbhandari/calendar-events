@@ -17,7 +17,7 @@ const LoginContextProvider = ({ children }: any) => {
     } catch (err) {
       console.error(err);
     }
-  }, [loggedIn]);
+  }, []);
 
   return (
     <LoginContext.Provider value={{ loggedIn, checkLoginState, user }}>

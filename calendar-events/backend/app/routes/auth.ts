@@ -76,6 +76,7 @@ router.get("/logged_in", (req, res) => {
   try {
     // Get token from cookie
     const token = req.cookies.token;
+    console.log("token", token);
 
     if (!token) {
       return res.json({ loggedIn: false });
