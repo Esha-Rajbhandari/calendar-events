@@ -7,7 +7,7 @@
     },
     {
       "source": "/(.*)",
-      "destination": "/"
+      "destination": "https://calendar-events-web.vercel.app//$1"
     }
   ]
 }

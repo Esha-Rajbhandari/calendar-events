@@ -6,7 +6,7 @@ const LoginContextProvider = ({ children }: any) => {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [user, setUser] = useState(null);
 
-  const checkLoginState = async () => {
+  const checkLoginState = useCallback(async () => {
     try {
       const {
         data: { loggedIn: logged_in, user },
@@ -17,7 +17,7 @@ const LoginContextProvider = ({ children }: any) => {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, []);
 
   return (
     <LoginContext.Provider value={{ loggedIn, checkLoginState, user }}>
