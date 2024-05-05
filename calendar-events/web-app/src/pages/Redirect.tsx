@@ -2,6 +2,8 @@ import * as http from "../http";
 import LoginContext from "@/context/login/LoginContext";
 import { useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import Login from "./Login";
+import Home from "./Home";
 
 const Redirect = () => {
   const called = useRef(false);
@@ -34,10 +36,10 @@ const Redirect = () => {
   }, [loggedIn, checkLoginState]);
 
   if (loggedIn) {
-    return <>{navigate("/home")}</>;
+    return <Home />;
   }
 
-  return <>{navigate("/")}</>;
+  return <Login />;
 };
 
 export default Redirect;
