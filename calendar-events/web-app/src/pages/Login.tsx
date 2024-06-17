@@ -1,13 +1,21 @@
+import LoginContext from "@/context/login/LoginContext";
 import * as http from "../http";
 import { Button } from "@/shadcn/ui/button";
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
 
 const Login = () => {
+  const { loggedIn } = useContext(LoginContext);
+  if (loggedIn) {
+    return <Navigate to="/" replace />;
+  }
+
   const handleLogin = async () => {
     try {
       // Gets authentication url from backend server
       const {
         data: { url },
-      } = await http.get(`${import.meta.env.VITE_API_ENDPOINT}/auth/url`);
+      } = await http.get(`${import.meta.env.VITE_API_ENDPOINT}/auth/google`);
       // Navigate to consent screen
       window.location.assign(url);
     } catch (err) {

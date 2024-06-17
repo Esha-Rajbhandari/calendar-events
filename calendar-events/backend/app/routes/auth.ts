@@ -8,20 +8,18 @@ import { addUser } from "../services/users/users.js";
 const router = express.Router();
 
 // Users route
-router.get("/url", (_, res) => {
+router.get("/google", (_, res) => {
   const config = getConfig();
   const authParams = getAuthParams();
-
   res.json({
     url: `${config.authUrl}?${authParams}`,
   });
 });
 
-router.get("/token", async (req, res) => {
+router.get("/google/callback", async (req, res) => {
   const config = getConfig();
 
   const { code } = req.query;
-
   if (!code) {
     return res
       .status(400)
@@ -63,8 +61,9 @@ router.get("/token", async (req, res) => {
       created_at: new Date(),
     };
 
-    const _user = addUser(userObj);
-    res.json(_user);
+    addUser(userObj);
+
+    res.redirect(config.webUrl);
   } catch (err) {
     console.error("Error: ", err);
     res.status(500).json({ message: err.message || "Server error" });
