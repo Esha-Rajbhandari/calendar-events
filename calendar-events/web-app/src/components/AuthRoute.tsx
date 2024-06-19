@@ -14,7 +14,7 @@ const AuthRoute = (props: any) => {
     return <>{props.children}</>;
   }
 
-  return <Navigate to={"/"} />;
+  return <Navigate to="/login" />;
 };
 
 export default AuthRoute;

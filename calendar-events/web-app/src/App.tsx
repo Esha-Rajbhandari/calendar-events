@@ -1,9 +1,8 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import Login from "./pages/Login";
 import { Suspense, lazy } from "react";
 import AuthRoute from "./components/AuthRoute";
-import Redirect from "./pages/Redirect";
 
 const HomePage = lazy(() => import("./pages/Home"));
 
@@ -11,7 +10,7 @@ const App = () => {
   return (
     <Routes>
       <Route
-        path="/"
+        path="/login"
         element={
           <Suspense fallback={<div>Loading...</div>}>
             <Login />
@@ -28,14 +27,7 @@ const App = () => {
           </AuthRoute>
         }
       />
-      <Route
-        path="/auth/callback"
-        element={
-          <Suspense fallback={<div>Loading...</div>}>
-            <Redirect />
-          </Suspense>
-        }
-      />
+      <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
   );
 };
